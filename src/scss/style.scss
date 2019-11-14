@@ -14,6 +14,20 @@ body {
   margin: 0;
 }
 
+@mixin for-size($size) {
+  @if $size == phone-only {
+    @media (max-width: 599px) { @content; }
+  } @else if $size == tablet-portrait-up {
+    @media (min-width: 600px) { @content; }
+  } @else if $size == tablet-landscape-up {
+    @media (min-width: 900px) { @content; }
+  } @else if $size == desktop-up {
+    @media (min-width: 1200px) { @content; }
+  } @else if $size == big-desktop-up {
+    @media (min-width: 1800px) { @content; }
+  }
+}
+
 @mixin box {
   background-color: $black;
   color: $white;
@@ -86,34 +100,70 @@ body {
   border: 4px solid $black;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
+
+  @include for-size(phone-only) {
+    @include grid-template-columns(grid-repeat(12, 1fr));
+    @include grid-template-rows(grid-repeat(12, 1fr));
+  }
 }
 
 .item-a {
+  transition: ease all 2s;
   @include box;
+  @include for-size(phone-only) {
+    background-color: red;
+    @include grid-column(2, 12);
+    @include grid-row(2, 4);
+
+  }
   @include grid-column(2, 6);
   @include grid-row(2, 12);
 }
 
 .item-b {
+  transition: ease all 2s;
   @include box;
+  @include for-size(phone-only) {
+    background-color: blue;
+    @include grid-column(2, 12);
+    @include grid-row(4, 6);
+  }
   @include grid-column(6, 12);
   @include grid-row(2, 4);
 }
 
 .item-c {
+  transition: ease all 2s;
   @include box;
+  @include for-size(phone-only) {
+    background-color: yellowgreen;
+    @include grid-column(2, 7);
+    @include grid-row(6, 11);
+  }
   @include grid-column(6, 10);
   @include grid-row(4, 10);
 }
 
 .item-d {
+  transition: ease all 2s;
   @include box;
+  @include for-size(phone-only) {
+    background-color: gold;
+    @include grid-column(7, 12);
+    @include grid-row(6, 11);
+  }
   @include grid-column(10, 12);
   @include grid-row(4, 12);
 }
 
 .item-e {
+  transition: ease all 2s;
   @include box;
+  @include for-size(phone-only) {
+    background-color: orange;
+    @include grid-column(2, 12);
+    @include grid-row(11, 12);
+  }
   @include grid-column(6, 10);
   @include grid-row(10, 12);
 }
